@@ -19,12 +19,12 @@ public class Transaction {
 
     //getter and setters
 
-    public int getTransaction_id() {
+    public int getTransactionId() {
         return transactionId;
     }
 
-    public void setTransaction_id(int transaction_id) {
-        this.transactionId = transaction_id;
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
     }
 
     public String getType() {
