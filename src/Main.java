@@ -4,8 +4,19 @@ import java.time.LocalDateTime;
 public class Main {
     public static void main(String[] args) {
 
-        Transaction salary = new Transaction(-1, "income", BigDecimal.valueOf(250000), LocalDateTime.now(), 1 );
+        //creating new transaction
+        Transaction salary = new Transaction(-1, "expense", BigDecimal.valueOf(1000), LocalDateTime.now(), 1 );
         TrasactionDAOImp con = new TrasactionDAOImp();
         con.save(salary);
+
+        //updating the balance in the account
+        AccountDAOImp addTrasactionToAccount = new AccountDAOImp();
+
+        if(salary.getType().equals("income")){
+            addTrasactionToAccount.updateBalance(salary.getAccountId(),salary.getAmount());
+        } else if(salary.getType().equals("expense")){
+            addTrasactionToAccount.updateBalance(salary.getAccountId(), salary.getAmount().negate());
+        }
+
     }
 }
