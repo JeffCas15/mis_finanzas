@@ -1,11 +1,8 @@
-import TransactionRow from './TransactionRow';
-import TransactionForm from './TransactionForm';
+import TransactionRow from "./TransactionRow";
+import TransactionForm from "./TransactionForm";
 
-
-function App(){
-  return(
-    <TransactionForm></TransactionForm>
-  );
+function App() {
+  return <TransactionForm />;
 }
 
-export default App
+export default App;
