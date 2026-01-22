@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         //creating new transaction
-        Transaction salary = new Transaction(-1, "expense", BigDecimal.valueOf(1000), LocalDateTime.now(), 1 );
+        Transaction salary = new Transaction(-1, "income", BigDecimal.valueOf(20000), LocalDateTime.now(), 1, 1);
         TrasactionDAOImp con = new TrasactionDAOImp();
         con.save(salary);
 

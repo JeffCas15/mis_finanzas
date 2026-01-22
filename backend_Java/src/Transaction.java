@@ -7,17 +7,19 @@ public class Transaction {
     private BigDecimal amount;
     private LocalDateTime dateTime;
     private int accountId;
+    private int categoryId;
 
     //constructor
-    public Transaction(int transactionId, String type, BigDecimal amount, LocalDateTime dateTime, int accountId){
+    public Transaction(int transactionId, String type, BigDecimal amount, LocalDateTime dateTime, int accountId, int categoryId){
         this.transactionId = transactionId;
         this.amount = amount;
         this.type = type;
         this.dateTime = dateTime;
         this.accountId = accountId;
+        this.categoryId = categoryId;
     }
 
-    //getter and setters
+//getter and setters
 
     public int getTransactionId() {
         return transactionId;
@@ -57,5 +59,13 @@ public class Transaction {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
