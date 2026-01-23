@@ -6,17 +6,27 @@ public class Transaction {
     private String type;
     private BigDecimal amount;
     private LocalDateTime dateTime;
+    private String description;
     private int accountId;
     private int categoryId;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     //constructor
-    public Transaction(int transactionId, String type, BigDecimal amount, LocalDateTime dateTime, int accountId, int categoryId){
+    public Transaction(int transactionId, String type, BigDecimal amount, LocalDateTime dateTime, int accountId, int categoryId, String description){
         this.transactionId = transactionId;
         this.amount = amount;
         this.type = type;
         this.dateTime = dateTime;
         this.accountId = accountId;
         this.categoryId = categoryId;
+        this.description = description;
     }
 
 //getter and setters
@@ -67,5 +77,17 @@ public class Transaction {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", type='" + type + '\'' +
+                ", amount=" + amount +
+                ", dateTime=" + dateTime +
+                ", accountId=" + accountId +
+                ", categoryId=" + categoryId +
+                '}';
     }
 }

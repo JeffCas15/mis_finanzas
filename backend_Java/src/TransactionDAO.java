@@ -7,4 +7,5 @@ public interface TransactionDAO {
    void edit(Transaction transaction);
    Transaction findById(int transactionId);
    List<Transaction> findAll();
+   public String toString();
 }

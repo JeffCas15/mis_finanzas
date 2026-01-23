@@ -1,14 +1,15 @@
-import java.sql.*;
-import java.time.LocalDateTime;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrasactionDAOImp implements TransactionDAO{
-
+public class TransactionDaoImp implements TransactionDAO{
     @Override
     public void save(Transaction transaction){
         //SQL
-        String sqlSave = "INSERT INTO transactions (transaction_type, amount, account_id, category_id) VALUES (?,?,?,?)";
+        String sqlSave = "INSERT INTO transactions (type, amount, account_id, category_id, description) VALUES (?,?,?,?,?)";
 
         //try using preparedStatement
         try(PreparedStatement ps = dbConnection.connectDb().prepareStatement(sqlSave)){
@@ -16,6 +17,7 @@ public class TrasactionDAOImp implements TransactionDAO{
             ps.setBigDecimal(2,transaction.getAmount());
             ps.setInt(3, transaction.getAccountId());
             ps.setInt(4, transaction.getCategoryId());
+            ps.setString(5, transaction.getDescription());
 
             ps.executeUpdate();
 
@@ -35,7 +37,7 @@ public class TrasactionDAOImp implements TransactionDAO{
 
             //executing
             ps.executeUpdate();
-            System.out.println("The transaction has been deleted !");
+            System.out.println("The transaction #" + transactionId + " has been deleted !");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -87,7 +89,8 @@ public class TrasactionDAOImp implements TransactionDAO{
                         response.getBigDecimal("amount"),
                         response.getTimestamp("date_time").toLocalDateTime(),
                         response.getInt("account_id"),
-                        response.getInt("category_id")
+                        response.getInt("category_id"),
+                        response.getString("description")
                 );
             }
 
@@ -101,9 +104,35 @@ public class TrasactionDAOImp implements TransactionDAO{
     @Override
     public List<Transaction> findAll() {
         List<Transaction> list = new ArrayList<>();
-        // SQL que une ambas tablas
+        // SQL
+        String sqlSearchAll = "SELECT * FROM transactions";
+
+        //try with prepared stament
+        try(PreparedStatement ps = dbConnection.connectDb().prepareStatement(sqlSearchAll)){
+
+            //response saved in ResulSet object
+            ResultSet rs = ps.executeQuery();
+
+            //mapping fields into new object
+            while(rs.next()){
+                Transaction allTransactions = new Transaction(
+                        rs.getInt("transaction_id"),
+                        rs.getString("type"),
+                        rs.getBigDecimal("amount"),
+                        rs.getTimestamp("date_time").toLocalDateTime(),
+                        rs.getInt("account_id"),
+                        rs.getInt("category_id"),
+                        rs.getString("description")
+                );
+
+                //adding the mapped object into the list
+                list.add(allTransactions);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
         return list;
     }
 }
-
-
